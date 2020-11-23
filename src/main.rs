@@ -77,7 +77,7 @@ async fn build(id: &u16, env: &str) -> Result<(), reqwest::Error> {
         commit_message: gh_info.title,
         workflow_id: env.to_string(),
         pull_request_merge_branch: format!("pull/{}/merge", &id),
-        pull_request_repository: gh_info.base.repo.ssh_url
+        pull_request_repository_url: gh_info.head.repo.ssh_url
     };
     let bitrise_req_body = model::BitriseRequestBody {
         hook_info: bitrise_hook_info,

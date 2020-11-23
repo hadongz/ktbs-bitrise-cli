@@ -69,8 +69,8 @@ pub async fn post_build(param: String, app_slug: &str, token: &str) -> Result<bo
         .body(param)
         .send()
         .await?;
-     match res.status() {
+    match res.status() {
         reqwest::StatusCode::OK => { Ok(true) },
         _ => { Ok(false) }
-    }
-} 
+   }
+}

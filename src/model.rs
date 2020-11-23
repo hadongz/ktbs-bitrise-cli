@@ -50,7 +50,7 @@ pub struct BitriseBuildParam {
    pub commit_message: String,
    pub workflow_id: String,
    pub pull_request_merge_branch: String,
-   pub pull_request_repository: String
+   pub pull_request_repository_url: String
 }
 
 #[derive(Serialize, Deserialize, Debug)]
