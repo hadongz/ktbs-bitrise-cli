@@ -88,7 +88,7 @@ async fn build(id: &u16, env: &str) -> Result<(), reqwest::Error> {
     if is_success {
         println!("====== Success trigger build ======");
     } else {
-        println!("====== Faield trigger build ======");
+        println!("====== Failed trigger build ======");
     }
     Ok(())
 }

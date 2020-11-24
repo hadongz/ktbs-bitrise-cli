@@ -71,6 +71,8 @@ pub async fn post_build(param: String, app_slug: &str, token: &str) -> Result<bo
         .await?;
     match res.status() {
         reqwest::StatusCode::OK => { Ok(true) },
+        reqwest::StatusCode::CREATED => { Ok(true) },
+        reqwest::StatusCode::ACCEPTED => { Ok(true) },
         _ => { Ok(false) }
    }
 }
