@@ -1,4 +1,4 @@
-# ktbs-bitrise-cli
+# trggr-bitrise-cli
 
 Belajar Rust proggaming language
 
