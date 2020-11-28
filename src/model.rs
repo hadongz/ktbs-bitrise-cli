@@ -4,6 +4,7 @@ use structopt::StructOpt;
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Config {
     pub gh_username: String,
+    pub gh_org: String,
     pub gh_token: String,
     pub gh_repo: String,
     pub btrs_app_slug: String,

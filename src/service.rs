@@ -4,14 +4,14 @@ use dirs;
 use reqwest::header::{AUTHORIZATION, ACCEPT, USER_AGENT};
 use magic_crypt::MagicCryptTrait;
 
-pub async fn get_gh_status(username: &str, token: &str) -> Result<bool, reqwest::Error> {
-    println!("====== Checking Kitabisa membership ======");
-    let req_url = format!("https://api.github.com/orgs/kitabisa/members/{}", username);
+pub async fn get_gh_status(username: &str, org: &str, token: &str) -> Result<bool, reqwest::Error> {
+    println!("====== Checking your organization membership ======");
+    let req_url = format!("https://api.github.com/orgs/{}/members/{}", org, username);
     let client = reqwest::Client::new();
     let res = client.get(&req_url)
         .header(AUTHORIZATION, token)
         .header(ACCEPT, "application/vnd.github.v3+json")
-        .header(USER_AGENT, "ktbs-bitrise-cli/0.1")
+        .header(USER_AGENT, "trggr-bitrise-cli/0.1")
         .send()
         .await?;
     match res.status() {
@@ -27,7 +27,7 @@ pub async fn get_bitrise_apps(token: &str) -> Result<Vec<model::BitriseAppModel>
     let res = client.get("https://api.bitrise.io/v0.1/apps")
         .header(AUTHORIZATION, token)
         .header(ACCEPT, "application/json")
-        .header(USER_AGENT, "ktbs-bitrise-cli/0.1")
+        .header(USER_AGENT, "trggr-bitrise-cli/0.1")
         .send()
         .await?;
     let data: model::BitriseAppResp = res.json().await?;
@@ -39,18 +39,18 @@ pub fn encrypt_config(model_config: &model::Config) {
     let mc = new_magic_crypt!(dotenv!("HASH_SECRET"), 256);    
     let json = serde_json::to_string(model_config).unwrap();
     let encrypted = mc.encrypt_str_to_base64(json);
-    let home_path = dirs::home_dir().expect("Error").join(".ktbs_config");
+    let home_path = dirs::home_dir().expect("Error").join(".trggr_config");
     std::fs::write(home_path, encrypted.as_bytes()).expect("Unable to write");
 }
 
 pub async fn get_pull_info(id: &u16, config: &model::Config) -> Result<model::GHPullReponseModel, reqwest::Error> {
     println!("====== Getting pull repo information ======");
-    let req_url = format!("https://api.github.com/repos/kitabisa/{}/pulls/{}", config.gh_repo, id);
+    let req_url = format!("https://api.github.com/repos/{}/{}/pulls/{}", config.gh_org, config.gh_repo, id);
     let client = reqwest::Client::new();
     let res = client.get(&req_url)
         .header(AUTHORIZATION, &config.gh_token)
         .header(ACCEPT, "application/vnd.github.v3+json")
-        .header(USER_AGENT, "ktbs-bitrise-cli/0.1")
+        .header(USER_AGENT, "trggr-bitrise-cli/0.1")
         .send()
         .await?;
     let result: model::GHPullReponseModel = res.json().await?;

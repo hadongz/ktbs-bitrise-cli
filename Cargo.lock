@@ -636,24 +636,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "ktbs-bitrise-cli"
-version = "0.1.0"
-dependencies = [
- "base64 0.13.0",
- "dirs",
- "dotenv",
- "dotenv_codegen",
- "magic-crypt",
- "regex",
- "reqwest",
- "rpassword",
- "serde",
- "serde_json",
- "structopt",
- "tokio",
-]
-
-[[package]]
 name = "lazy_static"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1447,6 +1429,24 @@ checksum = "ab7bb6f14721aa00656086e9335d363c5c8747bae02ebe32ea2c7dece5689b4c"
 dependencies = [
  "pin-project 0.4.27",
  "tracing",
+]
+
+[[package]]
+name = "trggr-bitrise-cli"
+version = "0.1.0"
+dependencies = [
+ "base64 0.13.0",
+ "dirs",
+ "dotenv",
+ "dotenv_codegen",
+ "magic-crypt",
+ "regex",
+ "reqwest",
+ "rpassword",
+ "serde",
+ "serde_json",
+ "structopt",
+ "tokio",
 ]
 
 [[package]]

@@ -1,5 +1,5 @@
 [package]
-name = "ktbs-bitrise-cli"
+name = "trggr-bitrise-cli"
 version = "0.1.0"
 authors = ["hadi <mhadifaturrahman@gmail.com>"]
 edition = "2018"

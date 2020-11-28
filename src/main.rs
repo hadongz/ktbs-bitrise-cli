@@ -25,12 +25,14 @@ async fn setup() -> Result<(), reqwest::Error>  {
     
     common::print_one_line("github username: ");
     let gh_username = common::read_line();
+    common::print_one_line("your orgnatization: ");
+    let gh_org = common::read_line();
     common::print_one_line("github personal accees token: ");
     let personal_gh_token = read_password().unwrap();
     let gh_token = common::convert_to_bas64(&gh_username, &personal_gh_token);
-    let is_member = service::get_gh_status(&gh_username, &gh_token).await?;
+    let is_member = service::get_gh_status(&gh_username, &gh_org, &gh_token).await?;
     if is_member {
-        println!("Success, you are a member of Kitabisa");
+        println!("Success, you are a member of organization");
         common::print_one_line("bitrise personal access token: ");
         let btrs_token = read_password().unwrap();
         let btrs_apps: Vec<model::BitriseAppModel> = service::get_bitrise_apps(&btrs_token).await?;
@@ -46,6 +48,7 @@ async fn setup() -> Result<(), reqwest::Error>  {
             Some(item) => { 
                 let config = model::Config{ 
                     gh_username: gh_username,
+                    gh_org: gh_org,
                     gh_token: gh_token,
                     gh_repo: item.title,
                     btrs_app_slug: item.slug,
@@ -57,7 +60,7 @@ async fn setup() -> Result<(), reqwest::Error>  {
             None => { println!("Choose the right app") }
         }
     } else {
-        println!("Sorry, you are not a member of Kitabisa");
+        println!("Sorry, you are not a member of the organization");
     }
     Ok(())
 }
